@@ -1,0 +1,20 @@
+{
+  "name": "the-last-patch",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "start": "node scripts/serve.mjs",
+    "dev": "node scripts/serve.mjs",
+    "test": "npm run build && node --test tests/*.test.mjs",
+    "check": "npm test",
+    "test:ui": "python scripts/ui-smoke-isolated.py"
+  },
+  "devDependencies": {
+    "typescript": "file:vendor/typescript-5.8.3.tgz"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

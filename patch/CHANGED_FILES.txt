@@ -1,0 +1,15 @@
+index.html
+style.css
+src/main.ts
+src/game/AssetRegistry.ts
+src/game/StoryRenderer.ts
+src/story/types.ts
+src/story/content.ts
+src/story/generatedContent.ts
+src/story/save.ts
+public/assets/manifest.json
+public/assets/props/*
+public/assets/sprites/*
+public/assets/ui/*
+docs/IMPLEMENTATION_STATUS.md
+dist/*

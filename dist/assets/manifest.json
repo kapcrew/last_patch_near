@@ -1,0 +1,77 @@
+{
+  "version": 2,
+  "logicalTile": 16,
+  "fallback": "procedural",
+  "background": "/media/twilight-city.png",
+  "sprites": {
+    "bridge": {
+      "broken": "/assets/props/building-bridge-broken.png",
+      "progress": "/assets/props/building-bridge-progress.png",
+      "restored": "/assets/props/building-bridge-restored.png"
+    },
+    "well": {
+      "broken": "/assets/props/building-well-broken.png",
+      "progress": "/assets/props/building-well-progress.png",
+      "restored": "/assets/props/building-well-restored.png"
+    },
+    "library": {
+      "broken": "/assets/props/building-library-broken.png",
+      "progress": "/assets/props/building-library-progress.png",
+      "restored": "/assets/props/building-library-restored.png"
+    },
+    "forge": {
+      "broken": "/assets/props/building-forge-broken.png",
+      "progress": "/assets/props/building-forge-progress.png",
+      "restored": "/assets/props/building-forge-restored.png"
+    }
+  },
+  "entries": {
+    "bg:crossing": "/media/twilight-city.png",
+    "sprite:player": "/assets/sprites/player-sheet.png",
+    "npc:monk": "/assets/sprites/npc-monk-sheet.png",
+    "npc:pawn": "/assets/sprites/npc-pawn-sheet.png",
+    "npc:archer": "/assets/sprites/npc-archer-sheet.png",
+    "npc:warrior": "/assets/sprites/npc-warrior-sheet.png",
+    "prop:tree1": "/assets/props/tree1.png",
+    "prop:tree2": "/assets/props/tree2.png",
+    "prop:bush1": "/assets/props/bush1.png",
+    "prop:bush2": "/assets/props/bush2.png",
+    "prop:house-red": "/assets/props/house-red.png",
+    "prop:house-blue": "/assets/props/house-blue.png",
+    "prop:house-green": "/assets/props/house-green.png",
+    "prop:fountain": "/assets/props/fountain.png",
+    "prop:monastery": "/assets/props/monastery.png",
+    "prop:alchemy": "/assets/props/alchemy.png",
+    "prop:building-bridge": "/assets/props/building-bridge.png",
+    "prop:building-well": "/assets/props/building-well.png",
+    "prop:building-library": "/assets/props/building-library.png",
+    "prop:building-forge": "/assets/props/building-forge.png",
+    "prop:building-bridge-broken": "/assets/props/building-bridge-broken.png",
+    "prop:building-bridge-progress": "/assets/props/building-bridge-progress.png",
+    "prop:building-bridge-restored": "/assets/props/building-bridge-restored.png",
+    "prop:building-well-broken": "/assets/props/building-well-broken.png",
+    "prop:building-well-progress": "/assets/props/building-well-progress.png",
+    "prop:building-well-restored": "/assets/props/building-well-restored.png",
+    "prop:building-library-broken": "/assets/props/building-library-broken.png",
+    "prop:building-library-progress": "/assets/props/building-library-progress.png",
+    "prop:building-library-restored": "/assets/props/building-library-restored.png",
+    "prop:building-forge-broken": "/assets/props/building-forge-broken.png",
+    "prop:building-forge-progress": "/assets/props/building-forge-progress.png",
+    "prop:building-forge-restored": "/assets/props/building-forge-restored.png",
+    "prop:city-heart": "/assets/ui/city-heart.png",
+    "ui:coin": "/assets/ui/icon-coin.png",
+    "ui:star": "/assets/ui/icon-star.png",
+    "ui:crystal": "/assets/ui/icon-crystal.png",
+    "ui:ingot": "/assets/ui/icon-ingot.png",
+    "ui:leaf": "/assets/ui/icon-leaf.png",
+    "ui:seed": "/assets/ui/icon-seed.png",
+    "ui:food": "/assets/ui/icon-food.png",
+    "ui:quest-bug": "/assets/ui/quest-bug.png",
+    "ui:quest-pr": "/assets/ui/quest-pr.png",
+    "ui:reward-bag": "/assets/ui/reward-bag.png",
+    "ui:leaderboard-trophy": "/assets/ui/leaderboard-trophy.png",
+    "ui:reputation-badge": "/assets/ui/reputation-badge.png",
+    "ui:ai-orb": "/assets/ui/ai-orb.png",
+    "ui:wallet-chain": "/assets/ui/wallet-chain.png"
+  }
+}

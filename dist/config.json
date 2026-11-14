@@ -1,0 +1,6 @@
+{
+  "contractId": "lastpatch.intent.testnet",
+  "network": "testnet",
+  "rpc": "https://rpc.testnet.fastnear.com",
+  "issueUrl": ""
+}

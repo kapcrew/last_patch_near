@@ -1,0 +1,185 @@
+﻿id,module,category,scenario,expected,priority,status
+TST-001,SITE-01,HAPPY_PATH,"Pixel Landing: пользователь выполняет главный сценарий, получает наблюдаемый результат","Подтверждено: Click Play routes to game, actual pixel button art",P1,NOT_RUN
+TST-002,SITE-01,NEGATIVE,Pixel Landing: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P1,NOT_RUN
+TST-003,SITE-01,PERSISTENCE,Pixel Landing: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-004,SITE-01,ACCESSIBILITY,Pixel Landing: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-005,SITE-02,HAPPY_PATH,"Static Routes: пользователь выполняет главный сценарий, получает наблюдаемый результат","Подтверждено: Refresh /play, /quests, /live works",P1,NOT_RUN
+TST-006,SITE-02,NEGATIVE,Static Routes: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P1,NOT_RUN
+TST-007,SITE-02,PERSISTENCE,Static Routes: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-008,SITE-02,ACCESSIBILITY,Static Routes: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-009,SITE-03,HAPPY_PATH,"World Explorer: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: No unlock leaks,P1,NOT_RUN
+TST-010,SITE-03,NEGATIVE,World Explorer: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P1,NOT_RUN
+TST-011,SITE-03,PERSISTENCE,World Explorer: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-012,SITE-03,ACCESSIBILITY,World Explorer: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-013,SITE-04,HAPPY_PATH,"Public Leaderboard: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: No fake global rows,P1,NOT_RUN
+TST-014,SITE-04,NEGATIVE,Public Leaderboard: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P1,NOT_RUN
+TST-015,SITE-04,PERSISTENCE,Public Leaderboard: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-016,SITE-04,ACCESSIBILITY,Public Leaderboard: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-017,ART-01,HAPPY_PATH,"Asset Manifest V2: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: Zero required missing files,P0,NOT_RUN
+TST-018,ART-01,NEGATIVE,Asset Manifest V2: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P0,NOT_RUN
+TST-019,ART-01,PERSISTENCE,Asset Manifest V2: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-020,ART-01,ACCESSIBILITY,Asset Manifest V2: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-021,ART-02,HAPPY_PATH,"Pixel Icon Set: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: No emoji glyph as final icon,P0,NOT_RUN
+TST-022,ART-02,NEGATIVE,Pixel Icon Set: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P0,NOT_RUN
+TST-023,ART-02,PERSISTENCE,Pixel Icon Set: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-024,ART-02,ACCESSIBILITY,Pixel Icon Set: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-025,ART-03,HAPPY_PATH,"Player Animations: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: Visual movement appears,P0,NOT_RUN
+TST-026,ART-03,NEGATIVE,Player Animations: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P0,NOT_RUN
+TST-027,ART-03,PERSISTENCE,Player Animations: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-028,ART-03,ACCESSIBILITY,Player Animations: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-029,ART-04,HAPPY_PATH,"NPC Sprites: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: All NPC spawned,P0,NOT_RUN
+TST-030,ART-04,NEGATIVE,NPC Sprites: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P0,NOT_RUN
+TST-031,ART-04,PERSISTENCE,NPC Sprites: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-032,ART-04,ACCESSIBILITY,NPC Sprites: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-033,ART-05,HAPPY_PATH,"Buildings: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: State changes visuals,P0,NOT_RUN
+TST-034,ART-05,NEGATIVE,Buildings: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P0,NOT_RUN
+TST-035,ART-05,PERSISTENCE,Buildings: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-036,ART-05,ACCESSIBILITY,Buildings: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-037,ART-06,HAPPY_PATH,"Tilemaps: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: Pass map validation,P0,NOT_RUN
+TST-038,ART-06,NEGATIVE,Tilemaps: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P0,NOT_RUN
+TST-039,ART-06,PERSISTENCE,Tilemaps: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-040,ART-06,ACCESSIBILITY,Tilemaps: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-041,GAME-01,HAPPY_PATH,"Input Manager: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: Touch target and focus tests,P0,NOT_RUN
+TST-042,GAME-01,NEGATIVE,Input Manager: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P0,NOT_RUN
+TST-043,GAME-01,PERSISTENCE,Input Manager: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-044,GAME-01,ACCESSIBILITY,Input Manager: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-045,GAME-02,HAPPY_PATH,"A* Pathfinding: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: Never cross blocked tiles,P0,NOT_RUN
+TST-046,GAME-02,NEGATIVE,A* Pathfinding: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P0,NOT_RUN
+TST-047,GAME-02,PERSISTENCE,A* Pathfinding: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-048,GAME-02,ACCESSIBILITY,A* Pathfinding: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-049,GAME-03,HAPPY_PATH,"Camera: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: No missing edges,P0,NOT_RUN
+TST-050,GAME-03,NEGATIVE,Camera: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P0,NOT_RUN
+TST-051,GAME-03,PERSISTENCE,Camera: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-052,GAME-03,ACCESSIBILITY,Camera: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-053,GAME-04,HAPPY_PATH,"Scene Manager: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: Scene transitions save,P0,NOT_RUN
+TST-054,GAME-04,NEGATIVE,Scene Manager: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P0,NOT_RUN
+TST-055,GAME-04,PERSISTENCE,Scene Manager: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-056,GAME-04,ACCESSIBILITY,Scene Manager: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-057,GAME-05,HAPPY_PATH,"Player Controller: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: No teleport glitches,P0,NOT_RUN
+TST-058,GAME-05,NEGATIVE,Player Controller: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P0,NOT_RUN
+TST-059,GAME-05,PERSISTENCE,Player Controller: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-060,GAME-05,ACCESSIBILITY,Player Controller: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-061,GAME-06,HAPPY_PATH,"NPC System: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: Different before/after,P0,NOT_RUN
+TST-062,GAME-06,NEGATIVE,NPC System: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P0,NOT_RUN
+TST-063,GAME-06,PERSISTENCE,NPC System: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-064,GAME-06,ACCESSIBILITY,NPC System: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-065,GAME-07,HAPPY_PATH,"Quest Engine: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: No deadlocks,P0,NOT_RUN
+TST-066,GAME-07,NEGATIVE,Quest Engine: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P0,NOT_RUN
+TST-067,GAME-07,PERSISTENCE,Quest Engine: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-068,GAME-07,ACCESSIBILITY,Quest Engine: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-069,GAME-08,HAPPY_PATH,"Puzzle Weaver: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: Cycles rejected,P0,NOT_RUN
+TST-070,GAME-08,NEGATIVE,Puzzle Weaver: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P0,NOT_RUN
+TST-071,GAME-08,PERSISTENCE,Puzzle Weaver: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-072,GAME-08,ACCESSIBILITY,Puzzle Weaver: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-073,GAME-09,HAPPY_PATH,"Puzzle Nullflow: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: All test vectors pass,P0,NOT_RUN
+TST-074,GAME-09,NEGATIVE,Puzzle Nullflow: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P0,NOT_RUN
+TST-075,GAME-09,PERSISTENCE,Puzzle Nullflow: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-076,GAME-09,ACCESSIBILITY,Puzzle Nullflow: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-077,GAME-10,HAPPY_PATH,"Puzzle Diff: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: No arbitrary code execution,P0,NOT_RUN
+TST-078,GAME-10,NEGATIVE,Puzzle Diff: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P0,NOT_RUN
+TST-079,GAME-10,PERSISTENCE,Puzzle Diff: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-080,GAME-10,ACCESSIBILITY,Puzzle Diff: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-081,GAME-11,HAPPY_PATH,"Puzzle Clock: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: Failures explained,P0,NOT_RUN
+TST-082,GAME-11,NEGATIVE,Puzzle Clock: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P0,NOT_RUN
+TST-083,GAME-11,PERSISTENCE,Puzzle Clock: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-084,GAME-11,ACCESSIBILITY,Puzzle Clock: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-085,GAME-12,HAPPY_PATH,"Puzzle Signature: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: Wrong signatures rejected,P0,NOT_RUN
+TST-086,GAME-12,NEGATIVE,Puzzle Signature: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P0,NOT_RUN
+TST-087,GAME-12,PERSISTENCE,Puzzle Signature: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-088,GAME-12,ACCESSIBILITY,Puzzle Signature: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-089,GAME-13,HAPPY_PATH,"Puzzle Relay: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: No duplicate delivery,P0,NOT_RUN
+TST-090,GAME-13,NEGATIVE,Puzzle Relay: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P0,NOT_RUN
+TST-091,GAME-13,PERSISTENCE,Puzzle Relay: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-092,GAME-13,ACCESSIBILITY,Puzzle Relay: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-093,GAME-14,HAPPY_PATH,"World State: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: Restoration changes scene,P0,NOT_RUN
+TST-094,GAME-14,NEGATIVE,World State: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P0,NOT_RUN
+TST-095,GAME-14,PERSISTENCE,World State: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-096,GAME-14,ACCESSIBILITY,World State: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-097,GAME-15,HAPPY_PATH,"Inventory: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: No mandatory item loss,P0,NOT_RUN
+TST-098,GAME-15,NEGATIVE,Inventory: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P0,NOT_RUN
+TST-099,GAME-15,PERSISTENCE,Inventory: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-100,GAME-15,ACCESSIBILITY,Inventory: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-101,GAME-16,HAPPY_PATH,"Dialogue: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: Skip/keyboard controls,P0,NOT_RUN
+TST-102,GAME-16,NEGATIVE,Dialogue: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P0,NOT_RUN
+TST-103,GAME-16,PERSISTENCE,Dialogue: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-104,GAME-16,ACCESSIBILITY,Dialogue: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-105,GAME-17,HAPPY_PATH,"Save System: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: Reload and migration pass,P0,NOT_RUN
+TST-106,GAME-17,NEGATIVE,Save System: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P0,NOT_RUN
+TST-107,GAME-17,PERSISTENCE,Save System: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-108,GAME-17,ACCESSIBILITY,Save System: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-109,GAME-18,HAPPY_PATH,"Story Journal: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: Data from quest store,P0,NOT_RUN
+TST-110,GAME-18,NEGATIVE,Story Journal: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P0,NOT_RUN
+TST-111,GAME-18,PERSISTENCE,Story Journal: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-112,GAME-18,ACCESSIBILITY,Story Journal: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-113,GAME-19,HAPPY_PATH,"Achievements: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: No duplicated awards,P0,NOT_RUN
+TST-114,GAME-19,NEGATIVE,Achievements: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P0,NOT_RUN
+TST-115,GAME-19,PERSISTENCE,Achievements: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-116,GAME-19,ACCESSIBILITY,Achievements: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-117,GAME-20,HAPPY_PATH,"Finale: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: Different actual outcomes,P0,NOT_RUN
+TST-118,GAME-20,NEGATIVE,Finale: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P0,NOT_RUN
+TST-119,GAME-20,PERSISTENCE,Finale: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-120,GAME-20,ACCESSIBILITY,Finale: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-121,COMM-01,HAPPY_PATH,"Challenges: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: Deterministic solver,P1,NOT_RUN
+TST-122,COMM-01,NEGATIVE,Challenges: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P1,NOT_RUN
+TST-123,COMM-01,PERSISTENCE,Challenges: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-124,COMM-01,ACCESSIBILITY,Challenges: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-125,COMM-02,HAPPY_PATH,"Leaderboard API: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: No client-only validation,P1,NOT_RUN
+TST-126,COMM-02,NEGATIVE,Leaderboard API: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P1,NOT_RUN
+TST-127,COMM-02,PERSISTENCE,Leaderboard API: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-128,COMM-02,ACCESSIBILITY,Leaderboard API: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-129,LIVE-01,HAPPY_PATH,"Wallet: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: Reject gracefully,P0,NOT_RUN
+TST-130,LIVE-01,NEGATIVE,Wallet: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P0,NOT_RUN
+TST-131,LIVE-01,PERSISTENCE,Wallet: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-132,LIVE-01,ACCESSIBILITY,Wallet: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-133,LIVE-02,HAPPY_PATH,"NEAR Read Adapter: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: No fake tx,P0,NOT_RUN
+TST-134,LIVE-02,NEGATIVE,NEAR Read Adapter: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P0,NOT_RUN
+TST-135,LIVE-02,PERSISTENCE,NEAR Read Adapter: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-136,LIVE-02,ACCESSIBILITY,NEAR Read Adapter: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-137,LIVE-03,HAPPY_PATH,"Escrow Contract: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: Callback verified,P0,NOT_RUN
+TST-138,LIVE-03,NEGATIVE,Escrow Contract: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P0,NOT_RUN
+TST-139,LIVE-03,PERSISTENCE,Escrow Contract: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-140,LIVE-03,ACCESSIBILITY,Escrow Contract: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-141,LIVE-04,HAPPY_PATH,"GitHub Evidence: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: No arbitrary URL fetch,P0,NOT_RUN
+TST-142,LIVE-04,NEGATIVE,GitHub Evidence: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P0,NOT_RUN
+TST-143,LIVE-04,PERSISTENCE,GitHub Evidence: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-144,LIVE-04,ACCESSIBILITY,GitHub Evidence: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-145,LIVE-05,HAPPY_PATH,"Live Visual Projection: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: No story shortcut,P0,NOT_RUN
+TST-146,LIVE-05,NEGATIVE,Live Visual Projection: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P0,NOT_RUN
+TST-147,LIVE-05,PERSISTENCE,Live Visual Projection: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-148,LIVE-05,ACCESSIBILITY,Live Visual Projection: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-149,AI-01,HAPPY_PATH,"Helper: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: Works offline,P1,NOT_RUN
+TST-150,AI-01,NEGATIVE,Helper: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P1,NOT_RUN
+TST-151,AI-01,PERSISTENCE,Helper: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-152,AI-01,ACCESSIBILITY,Helper: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-153,OPS-01,HAPPY_PATH,"Build & Deploy: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: /play refresh works,P1,NOT_RUN
+TST-154,OPS-01,NEGATIVE,Build & Deploy: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P1,NOT_RUN
+TST-155,OPS-01,PERSISTENCE,Build & Deploy: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-156,OPS-01,ACCESSIBILITY,Build & Deploy: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-157,OPS-02,HAPPY_PATH,"Security & Privacy: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: Static scan clean,P1,NOT_RUN
+TST-158,OPS-02,NEGATIVE,Security & Privacy: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P1,NOT_RUN
+TST-159,OPS-02,PERSISTENCE,Security & Privacy: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-160,OPS-02,ACCESSIBILITY,Security & Privacy: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+TST-161,OPS-03,HAPPY_PATH,"QA Automation: пользователь выполняет главный сценарий, получает наблюдаемый результат",Подтверждено: CI gate green,P1,NOT_RUN
+TST-162,OPS-03,NEGATIVE,QA Automation: неверный input/неправильная последовательность действий,Ошибка объяснена; игровые награды/финансы не начислены,P1,NOT_RUN
+TST-163,OPS-03,PERSISTENCE,QA Automation: перезагрузка/повтор операции/дублирование события,"Состояние воспроизведено, побочные эффекты не удвоены",P1,NOT_RUN
+TST-164,OPS-03,ACCESSIBILITY,QA Automation: keyboard и mobile взаимодействие,"Есть доступный контроль, нет нерабочих кнопок",P1,NOT_RUN
+SEC-001,CROSS-SYSTEM,CRITICAL,direct withdraw on unapproved bounty blocked,Blocked if invalid / verified on success; documented evidence,P0,NOT_RUN
+SEC-002,CROSS-SYSTEM,CRITICAL,callback of failed transfer returns recoverable state,Blocked if invalid / verified on success; documented evidence,P0,NOT_RUN
+SEC-003,CROSS-SYSTEM,CRITICAL,duplicate withdraw does not pay twice,Blocked if invalid / verified on success; documented evidence,P0,NOT_RUN
+SEC-004,CROSS-SYSTEM,CRITICAL,maintainer cannot impersonate worker,Blocked if invalid / verified on success; documented evidence,P0,NOT_RUN
+SEC-005,CROSS-SYSTEM,CRITICAL,worker cannot approve own patch,Blocked if invalid / verified on success; documented evidence,P0,NOT_RUN
+SEC-006,CROSS-SYSTEM,CRITICAL,random guest cannot cancel bounty,Blocked if invalid / verified on success; documented evidence,P0,NOT_RUN
+SEC-007,CROSS-SYSTEM,CRITICAL,bad repo URL blocked,Blocked if invalid / verified on success; documented evidence,P0,NOT_RUN
+SEC-008,CROSS-SYSTEM,CRITICAL,unmerged PR not marked approved automatically,Blocked if invalid / verified on success; documented evidence,P0,NOT_RUN
+SEC-009,CROSS-SYSTEM,CRITICAL,wrong chain ID rejected,Blocked if invalid / verified on success; documented evidence,P0,NOT_RUN
+SEC-010,CROSS-SYSTEM,CRITICAL,contract ID missing -> no fake state,Blocked if invalid / verified on success; documented evidence,P0,NOT_RUN
+SEC-011,CROSS-SYSTEM,CRITICAL,game offline mode does not require wallet,Blocked if invalid / verified on success; documented evidence,P0,NOT_RUN
+SEC-012,CROSS-SYSTEM,CRITICAL,story Sparks never converted to NEAR,Blocked if invalid / verified on success; documented evidence,P0,NOT_RUN
+SEC-013,CROSS-SYSTEM,CRITICAL,leaderboard score forged by client is rejected,Blocked if invalid / verified on success; documented evidence,P0,NOT_RUN
+SEC-014,CROSS-SYSTEM,CRITICAL,save migration from old 4 quests preserves state,Blocked if invalid / verified on success; documented evidence,P0,NOT_RUN
+SEC-015,CROSS-SYSTEM,CRITICAL,missing NPC sprite fails release gating,Blocked if invalid / verified on success; documented evidence,P0,NOT_RUN
+SEC-016,CROSS-SYSTEM,CRITICAL,user can finish without external GitHub,Blocked if invalid / verified on success; documented evidence,P0,NOT_RUN
+SEC-017,CROSS-SYSTEM,CRITICAL,UI symbols come from art atlas not Unicode glyphs,Blocked if invalid / verified on success; documented evidence,P0,NOT_RUN
+SEC-018,CROSS-SYSTEM,CRITICAL,game finishes after both required quest branches,Blocked if invalid / verified on success; documented evidence,P0,NOT_RUN
+SEC-019,CROSS-SYSTEM,CRITICAL,all 4 districts have independent collision masks,Blocked if invalid / verified on success; documented evidence,P0,NOT_RUN
+SEC-020,CROSS-SYSTEM,CRITICAL,profile delete removes personal leaderboard presence,Blocked if invalid / verified on success; documented evidence,P0,NOT_RUN

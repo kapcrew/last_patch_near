@@ -1,0 +1,17 @@
+﻿id,title,district,task,reward,estimatedMinutes
+S-01,The Blueberry Relay,crossing,"Найти три синих сигнала среди кустов, не собрав ложный red packet","Обучает search interaction, 3 сигнал-тайла, reveal merchant route",3
+S-02,Stones That Remember,crossing,Прочитать старые метки камней в правильном порядке,"Memory Fragment, 4-step ordering",3
+S-03,A Fence Out of Place,crossing,Восстановить три тайла ограждения по grid-pattern,Видимый декоративный world patch,2
+S-04,The Fisherman’s Retry,crossing,Помочь рыбаку повторить ошибочный запрос без дублирования,Новая NPC благодарность и special trinket,3
+S-05,Market of Mislabels,lantern,Сопоставить 5 бирок товара и складской инвентарь,Открывает магазинную вывеску и 5 Sparks,4
+S-06,The Innkeeper’s Spare Key,lantern,Проверить роль владельца и гостя для доступа в подсобку,Ключ cosmetic room,3
+S-07,Lanterns After Rain,lantern,Зажечь 4 фонаря в route order до моста,Вечерний фон улучшается,3
+S-08,The Missing Cart,lantern,Распланировать минимальный путь двух повозок по двум переходам,Новый shortcut,5
+S-09,Ink-Spilled Map,archive,Восстановить карту из 6 фрагментов с повторными заголовками,Архивная иллюстрация и codex item,4
+S-10,Ghost in the Margins,archive,Найти несогласованные символы подписи в шести книгах,Секретный диалог,4
+S-11,A Page Out of Order,archive,Составить рабочую инструкцию установки из 4 пунктов,Новая страница Codex,3
+S-12,The Hidden Reflection,archive,В отражении воды найти аномальный signal token,Memory Fragment,3
+S-13,Coal and Consequence,foundry,Согласовать 4 стадии нагрева без пропуска safety check,Forge animation variant,4
+S-14,The Fox’s First Tool,foundry,Собрать инструмент из 3 деталей в нужной последовательности,Craft animation + achievement,3
+S-15,Too Many Sparks,foundry,"Дедуплицировать серию сигналов, оставив один на каждую группу","Улучшение маяка, stars score",4
+S-16,An Unbroken Promise,foundry,"Доставить итоговое письмо трём NPC, выбрав вариант обещания",Секретная epilogue реплика,5

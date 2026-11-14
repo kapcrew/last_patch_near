@@ -1,0 +1,16 @@
+[package]
+name = "the-last-patch-bounty"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "THE LAST PATCH: non-custodial native NEAR testnet bounty escrow with maintainer-controlled review"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+borsh = { version = "1", features = ["derive"] }
+near-sdk = { version = "=5.17.2", features = ["legacy"] }
+
+[dev-dependencies]
+near-sdk = { version = "=5.17.2", features = ["legacy", "unit-testing"] }
