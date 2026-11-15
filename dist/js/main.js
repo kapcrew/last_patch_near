@@ -29,6 +29,8 @@ let config = { contractId: '', network: 'testnet', rpc: 'https://rpc.testnet.fas
 let error = '';
 const wallet = new NearWallet();
 let loading = false;
+let showNewBountyForm = false;
+let selectedBountyId = null;
 const txRecord = [];
 const modal = document.createElement('div');
 modal.className = 'modal-backdrop hidden';
@@ -282,96 +284,184 @@ function renderAuxPanel() {
 }
 function renderStory() { ensureStoryProgress(); renderStoryHUD(); renderStoryList(); renderStoryDetail(); renderAuxPanel(); storyRenderer?.setDistrict(storyState.districtId); if (storyRenderer)
     $('world').addEventListener('mousemove', () => { }); }
-function liveBounty(id) { return bounties.filter(b => b.building_id === id).slice().reverse().find(b => b.state !== 'CANCELLED') || bounties.filter(b => b.building_id === id).at(-1) || null; }
+function liveBounty(id) {
+    return bounties.filter(b => b.building_id === id).at(-1) || null;
+}
+function currentLiveBounty() {
+    if (selectedBountyId !== null) {
+        const chosen = bounties.find(b => b.id === selectedBountyId);
+        if (chosen)
+            return chosen;
+    }
+    return liveBounty(selectedLive);
+}
 function liveStatus(id) { return liveBounty(id)?.state || null; }
 function stateForArt(id) { return mode === 'live' ? visualState(liveStatus(id)) : 'broken'; }
 function stateLabel(id) { if (mode === 'story')
-    return 'STORY'; const live = liveBounty(id); return live ? live.state : id === 'bridge' ? 'UNFUNDED' : 'STORY'; }
-function renderHUDLive() { const { paid, total } = healthLive(bounties); $('city-health').textContent = total ? `${paid}/${total} LIVE` : '0 LIVE'; $('live-repairs').textContent = String(paid); $('locked-total').textContent = bounties.length ? `${yoctoToNear(bounties.filter(b => b.state !== 'PAID' && b.state !== 'CANCELLED').reduce((acc, b) => acc + BigInt(b.reward_yocto), 0n).toString())} Ⓝ` : '—'; const worker = bounties.find(b => b.worker === wallet.accountId && b.state === 'APPROVED'); $('pending-reward').textContent = worker ? `${yoctoToNear(worker.reward_yocto)} Ⓝ` : '—'; }
-function renderLiveList() { $('quest-count').textContent = '04'; $('quest-list').innerHTML = QUESTS.map(q => `<button class="quest-item ${selectedLive === q.id ? 'selected' : ''}" data-quest="${q.id}" role="listitem" aria-pressed="${selectedLive === q.id}"><span class="quest-symbol"><strong>${escape(q.title.split(' ')[1] || q.title)}</strong><span class="quest-kind">LIVE</span></span><span><h3>${escape(q.title)}</h3><small>${escape(q.npc)} · ${q.id === 'bridge' ? 'REAL FLOW' : 'STORY ONLY'}</small></span><span class="right ${stateLabel(q.id) === 'PAID' ? 'paid' : ''}">${escape(stateLabel(q.id))}</span></button>`).join(''); document.querySelectorAll('[data-quest]').forEach(btn => btn.addEventListener('click', () => selectLive(btn.dataset.quest, true))); }
-function selectLive(id, walk = false) { selectedLive = id; liveRenderer.selected = id; if (walk)
-    liveRenderer.goTo(id); evidence = null; renderLiveList(); renderLiveDetails(); }
-function getStatusView(b) { const r = yoctoToNear(b.reward_yocto); return `<dl class="metadata"><dt>STATUS</dt><dd class="status-line">${escape(b.state)}</dd><dt>BOUNTY ID</dt><dd>#${b.id}</dd><dt>REWARD</dt><dd>${r} TESTNET Ⓝ</dd><dt>STORAGE</dt><dd>${yoctoToNear(b.storage_reserve_yocto)} Ⓝ</dd><dt>MAINTAINER</dt><dd>${escape(b.maintainer)}</dd><dt>PATCHER</dt><dd>${escape(b.worker || 'Unclaimed')}</dd><dt>GITHUB</dt><dd>${escape(b.repo)}#${b.issue_number}</dd><dt>PR</dt><dd>${b.pr_url ? `<a href="${escape(b.pr_url)}" target="_blank" rel="noopener noreferrer">Open submitted PR ↗</a>` : 'Not submitted'}</dd></dl>`; }
+    return 'STORY'; const live = liveBounty(id); return live ? live.state : 'UNFUNDED'; }
+function renderHUDLive() {
+    const { paid, total } = healthLive(bounties);
+    $('city-health').textContent = total ? `${paid}/${total} LIVE` : '0 LIVE';
+    $('live-repairs').textContent = String(paid);
+    const locked = bounties.filter(b => !['PAID', 'CANCELLED'].includes(b.state)).reduce((acc, b) => acc + BigInt(b.reward_yocto), 0n);
+    $('locked-total').textContent = total ? `${yoctoToNear(locked.toString())} Ⓝ` : '—';
+    const worker = bounties.find(b => b.worker === wallet.accountId && b.state === 'APPROVED');
+    $('pending-reward').textContent = worker ? `${yoctoToNear(worker.reward_yocto)} Ⓝ` : '—';
+}
+function renderLiveList() {
+    const current = currentLiveBounty();
+    $('quest-count').textContent = String(bounties.length).padStart(2, '0');
+    const actions = `<button class="button primary live-create-top" data-action="new-bounty" type="button">+ CREATE NEW BOUNTY</button>`;
+    const entries = bounties.slice().reverse().map(b => {
+        const building = QUESTS.find(q => q.id === b.building_id);
+        const selected = !showNewBountyForm && current?.id === b.id;
+        return `<button class="quest-item live-bounty-row ${selected ? 'selected' : ''}" data-bounty-id="${b.id}" role="listitem" aria-pressed="${selected}">
+      <span class="quest-symbol"><strong>#${b.id}</strong><span class="quest-kind">${escape(b.building_id.toUpperCase())}</span></span>
+      <span class="live-bounty-description"><h3>${escape(b.title)}</h3><small>${escape(b.repo)} #${b.issue_number} · ${yoctoToNear(b.reward_yocto)} Ⓝ</small></span>
+      <span class="right ${b.state === 'PAID' ? 'paid' : ''}">${escape(b.state)}</span></button>`;
+    }).join('');
+    $('quest-list').innerHTML = actions + `<p class="live-list-count">ON-CHAIN BOUNTIES · ${bounties.length}</p>` + (entries || '<p class="live-board-empty">No funded bounty yet. Create the first one using a public GitHub Issue.</p>');
+    document.querySelectorAll('[data-bounty-id]').forEach(btn => btn.addEventListener('click', () => selectBounty(Number(btn.dataset.bountyId))));
+    document.querySelectorAll('#quest-list [data-action]').forEach(btn => btn.addEventListener('click', () => void performLive(btn.dataset.action)));
+}
+function selectBounty(id) {
+    const chosen = bounties.find(b => b.id === id);
+    if (!chosen)
+        return;
+    selectedBountyId = id;
+    selectedLive = chosen.building_id;
+    showNewBountyForm = false;
+    evidence = null;
+    if (liveRenderer) {
+        liveRenderer.selected = chosen.building_id;
+    }
+    renderLiveList();
+    renderLiveDetails();
+}
+function selectLive(id, walk = false) {
+    selectedLive = id;
+    selectedBountyId = liveBounty(id)?.id ?? null;
+    showNewBountyForm = false;
+    evidence = null;
+    if (liveRenderer) {
+        liveRenderer.selected = id;
+        if (walk)
+            liveRenderer.goTo(id);
+    }
+    renderLiveList();
+    renderLiveDetails();
+}
+function getStatusView(b) {
+    const r = yoctoToNear(b.reward_yocto);
+    return `<dl class="metadata"><dt>STATUS</dt><dd class="status-line">${escape(b.state)}</dd><dt>BOUNTY ID</dt><dd>#${b.id}</dd><dt>REWARD</dt><dd>${r} TESTNET Ⓝ</dd><dt>STORAGE</dt><dd>${yoctoToNear(b.storage_reserve_yocto)} Ⓝ</dd><dt>MAINTAINER</dt><dd>${escape(b.maintainer)}</dd><dt>PATCHER</dt><dd>${escape(b.worker || 'Unclaimed')}</dd><dt>GITHUB</dt><dd>${escape(b.repo)}#${b.issue_number}</dd><dt>PR</dt><dd>${b.pr_url ? `<a href="${escape(b.pr_url)}" target="_blank" rel="noopener noreferrer">Open submitted PR ↗</a>` : 'Not submitted'}</dd></dl>`;
+}
 function renderLiveDetails() {
     const q = QUESTS.find(x => x.id === selectedLive);
-    const isSample = q.id !== 'bridge';
-    const status = q.id === 'bridge' ? liveStatus('bridge') : 'SAMPLE';
-    const repaired = status === 'PAID';
-    let html = `<span class="tag ${isSample ? 'sample' : repaired ? 'paid' : ''}">${isSample ? 'STORY/SAMPLE' : 'NEAR TESTNET'}</span><h3>${escape(q.title)}</h3><span class="eyebrow">${escape(q.npc)} / ${escape(q.issueHint)}</span><div class="quest-quote">“${escape(repaired ? q.restoredQuote : q.quote)}”</div><p>${escape(q.problem)}</p>`;
-    if (isSample) {
-        html += `<p>Story mode now owns the big campaign. This panel remains as the truthful live bounty board for the Bridge flow.</p><div class="action-stack"><a class="button primary" href="/sample">OPEN STORY MODE</a></div>`;
+    const bounty = currentLiveBounty();
+    let html = `<span class="tag">NEAR TESTNET / REAL ESCROW</span><h3>${showNewBountyForm ? 'Create a new on-chain bounty' : bounty ? escape(bounty.title) : escape(q.title)}</h3>`;
+    if (!config.contractId) {
+        html += '<p class="disclaimer">Live unavailable — no deployed contract configured.</p>';
     }
-    else {
-        const bounty = liveBounty('bridge');
-        if (!config.contractId) {
-            html += `<p class="disclaimer">Live unavailable — no deployed contract configured.</p>`;
+    else if (error) {
+        html += `<p class="disclaimer">RPC unavailable: ${escape(error)}</p>`;
+    }
+    else if (showNewBountyForm || !bounty) {
+        html += `<p class="input-help">Create as many separate tasks as needed, even while earlier bounties are OPEN, CANCELLED or PAID. Each requires a different public GitHub Issue and a new signed deposit.</p>`;
+        if (bounty) {
+            html += `<p class="input-help"><a href="https://github.com/${escape(bounty.repo)}/issues/new" target="_blank" rel="noopener noreferrer">CREATE A NEW ISSUE IN ${escape(bounty.repo)} ↗</a></p>`;
         }
-        else if (error) {
-            html += `<p class="disclaimer">RPC unavailable: ${escape(error)}</p>`;
-        }
-        else if (!bounty) {
-            if (wallet.accountId) {
-                html += `<div class="input-group"><label for="issue-url">PUBLIC GITHUB ISSUE</label><input id="issue-url" placeholder="https://github.com/owner/repo/issues/1" value="${escape(config.issueUrl)}"></div><div class="input-group"><label for="amount">TESTNET REWARD (Ⓝ)</label><input id="amount" value="0.05" inputmode="decimal"></div><div class="action-stack"><button class="button primary" data-action="create">FUND REAL BOUNTY</button></div>`;
-            }
-            else
-                html += `<button class="button primary" data-action="connect">CONNECT TO FUND</button>`;
+        html += `<div class="input-group"><label for="issue-url">PUBLIC GITHUB ISSUE</label><input id="issue-url" type="url" placeholder="https://github.com/owner/repo/issues/2" value="${escape(bounties.length ? '' : config.issueUrl)}" autocomplete="off"></div>`;
+        html += `<div class="input-group"><label for="bounty-title">BOUNTY TITLE</label><input id="bounty-title" maxlength="100" value="${escape('Fix ' + q.title.toLowerCase().replace(/^the /, '') + ' issue')}"></div>`;
+        html += `<div class="input-group"><label for="bounty-building">CITY DISTRICT</label><select id="bounty-building" class="live-select">${QUESTS.map(x => `<option value="${x.id}" ${x.id === selectedLive ? 'selected' : ''}>${escape(x.title)}</option>`).join('')}</select></div>`;
+        html += `<div class="input-group"><label for="amount">TESTNET REWARD (Ⓝ)</label><input id="amount" inputmode="decimal" value="${escape(q.reward)}"></div>`;
+        html += `<p class="input-help">A non-refundable 0.08 Testnet NEAR storage reserve is added to each reward. The existing contract permits up to 500 bounties in total and rejects reused GitHub Issues.</p>`;
+        if (wallet.accountId) {
+            html += '<div class="action-stack"><button class="button primary" data-action="create">FUND NEW BOUNTY</button>';
+            if (bounty)
+                html += '<button class="button outline" data-action="back-bounty">BACK TO SELECTED BOUNTY</button>';
+            html += '</div>';
         }
         else {
-            html += getStatusView(bounty) + `<div class="action-stack"><a class="button outline" href="https://github.com/${escape(bounty.repo)}/issues/${bounty.issue_number}" target="_blank" rel="noopener noreferrer">OPEN ISSUE ↗</a><button class="button outline" data-action="ai">ASK AI ENGINEER</button></div>`;
-            if (!wallet.accountId)
-                html += `<button class="button outline" data-action="connect">CONNECT WALLET</button>`;
-            else if (bounty.state === 'OPEN') {
-                if (bounty.maintainer === wallet.accountId)
-                    html += `<button class="button outline" data-action="cancel">CANCEL BOUNTY</button>`;
-                else
-                    html += `<button class="button primary" data-action="claim">CLAIM QUEST</button>`;
-            }
-            else if (bounty.state === 'CLAIMED' && bounty.worker === wallet.accountId)
-                html += `<div class="input-group"><label for="pr-url">PULL REQUEST URL</label><input id="pr-url" placeholder="https://github.com/owner/repo/pull/2"></div><div class="action-stack"><button class="button outline" data-action="check-evidence">CHECK EVIDENCE</button><button class="button primary" data-action="submit">SUBMIT PATCH</button></div>`;
-            else if (bounty.state === 'SUBMITTED' && bounty.maintainer === wallet.accountId)
-                html += `<div class="action-stack"><button class="button outline" data-action="check-evidence">VALIDATE PR EVIDENCE</button></div><label class="input-help"><input id="human-review" type="checkbox"> I personally reviewed the patch.</label><div class="action-stack"><button class="button primary" data-action="approve">APPROVE PATCH</button></div>`;
-            else if (bounty.state === 'APPROVED' && bounty.worker === wallet.accountId)
-                html += `<button class="button primary" data-action="withdraw">WITHDRAW REWARD</button>`;
-            else if (bounty.state === 'PAID')
-                html += `<p class="status-line">PATCH COMPLETE — confirmed PAID.</p>`;
-            if (evidence && evidence.prUrl === bounty.pr_url)
-                html += `<p class="input-help">GITHUB: ${escape(evidence.status)} · CI ${escape(evidence.ci)} · SHA ${escape(evidence.headSha.slice(0, 10))}</p>`;
+            html += '<button class="button primary" data-action="connect">CONNECT WALLET TO FUND</button>';
         }
     }
+    else {
+        html += getStatusView(bounty) + `<div class="action-stack"><a class="button outline" href="https://github.com/${escape(bounty.repo)}/issues/${bounty.issue_number}" target="_blank" rel="noopener noreferrer">OPEN GITHUB ISSUE ↗</a><button class="button outline" data-action="ai">ASK AI ENGINEER</button></div>`;
+        html += '<div class="action-stack"><button class="button primary" data-action="new-bounty">+ CREATE ANOTHER BOUNTY</button></div>';
+        if (!wallet.accountId)
+            html += '<button class="button outline" data-action="connect">CONNECT WALLET</button>';
+        else if (bounty.state === 'OPEN') {
+            if (bounty.maintainer === wallet.accountId)
+                html += '<button class="button outline" data-action="cancel">CANCEL THIS BOUNTY</button>';
+            else
+                html += '<button class="button primary" data-action="claim">CLAIM THIS BOUNTY</button>';
+        }
+        else if (bounty.state === 'CLAIMED' && bounty.worker === wallet.accountId) {
+            html += '<div class="input-group"><label for="pr-url">PULL REQUEST URL</label><input id="pr-url" placeholder="https://github.com/owner/repo/pull/2"></div><div class="action-stack"><button class="button outline" data-action="check-evidence">CHECK EVIDENCE</button><button class="button primary" data-action="submit">SUBMIT PATCH</button></div>';
+        }
+        else if (bounty.state === 'SUBMITTED' && bounty.maintainer === wallet.accountId) {
+            html += '<div class="action-stack"><button class="button outline" data-action="check-evidence">VALIDATE PR EVIDENCE</button></div><label class="input-help"><input id="human-review" type="checkbox"> I personally reviewed the patch.</label><div class="action-stack"><button class="button primary" data-action="approve">APPROVE PATCH</button></div>';
+        }
+        else if (bounty.state === 'APPROVED' && bounty.worker === wallet.accountId) {
+            html += '<button class="button primary" data-action="withdraw">WITHDRAW REWARD</button>';
+        }
+        else if (bounty.state === 'PAID') {
+            html += '<p class="status-line">PATCH COMPLETE — confirmed PAID.</p>';
+        }
+        else if (bounty.state === 'CANCELLED') {
+            html += '<p class="input-help">Cancelled bounty kept in on-chain history. Create another bounty with a NEW GitHub Issue.</p>';
+        }
+        if (evidence && evidence.prUrl === bounty.pr_url)
+            html += `<p class="input-help">GITHUB: ${escape(evidence.status)} · CI ${escape(evidence.ci)} · SHA ${escape(evidence.headSha.slice(0, 10))}</p>`;
+    }
     $('quest-detail').innerHTML = html;
-    document.querySelectorAll('[data-action]').forEach(btn => btn.addEventListener('click', () => void performLive(btn.dataset.action)));
+    document.querySelectorAll('#quest-detail [data-action]').forEach(btn => btn.addEventListener('click', () => void performLive(btn.dataset.action)));
     renderProof();
 }
-function renderProof() { if (mode !== 'live') {
-    $('proof-trail').innerHTML = '';
-    return;
-} const b = liveBounty('bridge'); let html = '<h3>PROOF TRAIL</h3>'; if (!config.contractId)
-    html += '<p>CONTRACT: NOT DEPLOYED</p>';
-else {
-    html += `<div class="proof-entry">CONTRACT: ${escape(config.contractId)}</div>`;
-    if (b)
-        html += `<div class="proof-entry">BOUNTY #${b.id}: ${escape(b.state)}</div><div class="proof-entry">PR SHA: ${escape(b.commit_sha || '—')}</div><div class="proof-entry">PAYOUT: ${b.state === 'PAID' ? 'CONFIRMED' : 'NOT PAID'}</div>`;
-} for (const t of txRecord)
-    html += `<div class="proof-entry">${escape(t.method)}: <a href="${escape(explorerTx(t.hash))}" rel="noopener noreferrer" target="_blank">${escape(t.hash.slice(0, 12))}… ↗</a></div>`; $('proof-trail').innerHTML = html; }
-async function refresh() { if (mode !== 'live')
-    return; if (!config.contractId) {
-    error = '';
-    renderLive();
-    return;
-} loading = true; notice('Reading the NEAR Testnet contract...'); try {
-    bounties = await getBounties(config);
-    error = '';
-    notice(`Contract response confirmed: ${bounties.length} live bounties.`);
+function renderProof() {
+    if (mode !== 'live') {
+        $('proof-trail').innerHTML = '';
+        return;
+    }
+    const b = showNewBountyForm ? null : currentLiveBounty();
+    let html = '<h3>PROOF TRAIL</h3>';
+    if (!config.contractId) {
+        html += '<p>CONTRACT: NOT DEPLOYED</p>';
+    }
+    else {
+        html += `<div class="proof-entry">CONTRACT: ${escape(config.contractId)}</div><div class="proof-entry">TOTAL RECORDS: ${bounties.length}</div>`;
+        if (b)
+            html += `<div class="proof-entry">SELECTED BOUNTY #${b.id}: ${escape(b.state)}</div><div class="proof-entry">PR SHA: ${escape(b.commit_sha || '—')}</div><div class="proof-entry">PAYOUT: ${b.state === 'PAID' ? 'CONFIRMED' : 'NOT PAID'}</div>`;
+    }
+    for (const t of txRecord)
+        html += `<div class="proof-entry">${escape(t.method)}: <a href="${escape(explorerTx(t.hash))}" rel="noopener noreferrer" target="_blank">${escape(t.hash.slice(0, 12))}… ↗</a></div>`;
+    $('proof-trail').innerHTML = html;
 }
-catch (e) {
-    error = e instanceof Error ? e.message : String(e);
-    bounties = [];
-    notice(`RPC failed: ${error}`);
+async function refresh() {
+    if (mode !== 'live')
+        return;
+    if (!config.contractId) {
+        error = '';
+        renderLive();
+        return;
+    }
+    loading = true;
+    notice('Reading the NEAR Testnet contract...');
+    try {
+        bounties = await getBounties(config);
+        error = '';
+        notice(`Contract response confirmed: ${bounties.length} on-chain bounties.`);
+    }
+    catch (e) {
+        error = e instanceof Error ? e.message : String(e);
+        bounties = [];
+        notice(`RPC failed: ${error}`);
+    }
+    finally {
+        loading = false;
+        renderLive();
+    }
 }
-finally {
-    loading = false;
-    renderLive();
-} }
 async function performLive(action) {
     if (action === 'connect') {
         await connect();
@@ -381,11 +471,23 @@ async function performLive(action) {
         alert(explainQuest(QUESTS.find(q => q.id === selectedLive)));
         return;
     }
+    if (action === 'new-bounty') {
+        showNewBountyForm = true;
+        renderLiveList();
+        renderLiveDetails();
+        return;
+    }
+    if (action === 'back-bounty') {
+        showNewBountyForm = false;
+        renderLiveList();
+        renderLiveDetails();
+        return;
+    }
     if (loading || error) {
         notice('Refresh live state before sending transactions.');
         return;
     }
-    const b = liveBounty('bridge');
+    const b = currentLiveBounty();
     if (!wallet.accountId) {
         notice('Connect a wallet to change contract state.');
         return;
@@ -395,14 +497,27 @@ async function performLive(action) {
         if (action === 'create') {
             const i = $('issue-url').value.trim();
             const issue = parseGitHubIssue(i);
+            if (issue.number < 1)
+                throw Error('GitHub Issue number must be greater than zero.');
+            if (bounties.some(x => x.repo.toLowerCase() === issue.repo && x.issue_number === issue.number))
+                throw Error('This GitHub Issue already belongs to an existing bounty. Create a new Issue number for each bounty.');
+            const title = $('bounty-title').value.trim();
+            if ([...title].length < 5 || [...title].length > 100)
+                throw Error('Bounty title must be between 5 and 100 characters.');
+            const building = $('bounty-building').value;
+            if (!QUESTS.some(q => q.id === building))
+                throw Error('Invalid city district.');
+            const reward = decimalNearToYocto($('amount').value.trim());
+            if (BigInt(reward) < 1n || BigInt(reward) > 5n * 10n ** 24n)
+                throw Error('Reward must be greater than zero and no more than 5 NEAR.');
             await verifyIssue(i);
-            deposit = (BigInt(decimalNearToYocto($('amount').value.trim())) + BigInt(STORAGE_RESERVE_YOCTO)).toString();
-            args = { repo: issue.repo, issue_number: issue.number, title: 'The Broken Bridge', building_id: 'bridge', reward_yocto: decimalNearToYocto($('amount').value.trim()) };
+            deposit = (BigInt(reward) + BigInt(STORAGE_RESERVE_YOCTO)).toString();
+            args = { repo: issue.repo, issue_number: issue.number, title, building_id: building, reward_yocto: reward };
             method = 'create_bounty';
         }
         else {
             if (!b)
-                throw Error('Bounty missing, refresh state');
+                throw Error('Select an existing bounty, then retry.');
             args = { id: b.id };
             if (action === 'claim')
                 method = 'claim_bounty';
@@ -435,6 +550,7 @@ async function performLive(action) {
             else
                 throw Error(`Unsupported action ${action}`);
         }
+        const existingIds = new Set(bounties.map(x => x.id));
         notice('Waiting for wallet confirmation...');
         const out = await wallet.change(config, method, args, deposit);
         const hash = out?.transaction?.hash;
@@ -442,22 +558,45 @@ async function performLive(action) {
             txRecord.push({ method, hash });
         notice('Wallet returned. Checking NEAR contract state...');
         await refresh();
+        if (action === 'create' && !error) {
+            const created = bounties.find(x => !existingIds.has(x.id));
+            if (created) {
+                selectedBountyId = created.id;
+                selectedLive = created.building_id;
+                showNewBountyForm = false;
+                renderLive();
+                notice(`Bounty #${created.id} confirmed on-chain. You can create another at any time.`);
+            }
+            else
+                notice('No new bounty found on-chain yet. Refresh or inspect the transaction before retrying; do not fund twice.');
+        }
     }
     catch (e) {
         notice(`Action not completed: ${e instanceof Error ? e.message : String(e)}`);
     }
 }
-function renderLive() { renderHUDLive(); renderLiveList(); renderLiveDetails(); $('intro').hidden = true; $('mode-badge').textContent = 'LIVE TESTNET'; $('stage-title').textContent = 'The city needs a real patch.'; $('stage-subtitle').textContent = 'Story mode is offline and generous. Live mode only changes on verified on-chain state.'; $('panel-intro').textContent = 'The Bridge bounty is the truthful NEAR flow. No fake on-chain progress is shown here.'; }
-async function connect() { try {
-    notice('Connecting to a NEAR Testnet wallet...');
-    await wallet.connect(config);
-    if (wallet.accountId)
-        notice(`Connected: ${wallet.accountId}`);
+function renderLive() {
+    renderHUDLive();
+    renderLiveList();
+    renderLiveDetails();
+    $('intro').hidden = true;
+    $('mode-badge').textContent = 'LIVE TESTNET';
+    $('stage-title').textContent = 'Repair quests backed by real NEAR.';
+    $('stage-subtitle').textContent = 'Create, browse and fund separate GitHub issues; every live state comes from the NEAR contract.';
+    $('panel-intro').textContent = 'Select any on-chain bounty or create another — even while earlier repairs are still underway.';
 }
-catch (e) {
-    notice(`Wallet unavailable: ${e instanceof Error ? e.message : String(e)}`);
-} }
-function renderHome() { $('intro').hidden = false; $('mode-badge').textContent = 'HOME'; $('stage-title').textContent = 'A broken city, rebuilt quest by quest.'; $('stage-subtitle').textContent = 'Story mode is a full pixel campaign. Live mode keeps the honest contract-backed patch loop.'; $('quest-list').innerHTML = ''; $('quest-detail').innerHTML = '<h3>Choose your path</h3><p>Story mode contains four districts, main and side quests, puzzles, inventory, achievements and local save slots. Live mode retains the NEAR Testnet bounty flow for the Bridge quest.</p><div class="play-controls"><a class="button primary" href="/sample">START STORY</a><a class="button outline" href="/live">OPEN LIVE BOARD</a></div>'; $('proof-trail').innerHTML = ''; $('city-health').textContent = '4 DISTRICTS'; $('live-repairs').textContent = '48 QUESTS'; $('locked-total').textContent = '6 PUZZLES'; $('pending-reward').textContent = 'LOCAL + LIVE'; }
+async function connect() {
+    try {
+        notice('Connecting to a NEAR Testnet wallet...');
+        await wallet.connect(config);
+        if (wallet.accountId)
+            notice(`Connected: ${wallet.accountId}`);
+    }
+    catch (e) {
+        notice(`Wallet unavailable: ${e instanceof Error ? e.message : String(e)}`);
+    }
+}
+function renderHome() { $('intro').hidden = false; $('mode-badge').textContent = 'HOME'; $('stage-title').textContent = 'A broken city, rebuilt quest by quest.'; $('stage-subtitle').textContent = 'Story mode is a full pixel campaign. Live mode keeps the honest contract-backed patch loop.'; $('quest-list').innerHTML = ''; $('quest-detail').innerHTML = '<h3>Choose your path</h3><p>Story mode contains four districts, main and side quests, puzzles, inventory, achievements and local save slots. Live mode allows multiple independent on-chain bounties linked to public GitHub Issues.</p><div class="play-controls"><a class="button primary" href="/sample">START STORY</a><a class="button outline" href="/live">OPEN LIVE BOARD</a></div>'; $('proof-trail').innerHTML = ''; $('city-health').textContent = '4 DISTRICTS'; $('live-repairs').textContent = '48 QUESTS'; $('locked-total').textContent = '6 PUZZLES'; $('pending-reward').textContent = 'LOCAL + LIVE'; }
 function renderAbout() { $('intro').hidden = true; $('mode-badge').textContent = 'ABOUT'; $('stage-title').textContent = 'How THE LAST PATCH works'; $('stage-subtitle').textContent = 'A local campaign for play, plus a separate live board for real testnet payouts.'; $('quest-list').innerHTML = ''; $('quest-detail').innerHTML = '<h3>System split</h3><ul><li>Story mode works offline without wallet or GitHub.</li><li>Live mode reads NEAR RPC and requires signed actions.</li><li>Local leaderboard is clearly marked local-only.</li><li>On-chain rewards are separate from Sparks and local progress.</li></ul>'; $('proof-trail').innerHTML = ''; $('city-health').textContent = 'STORY + LIVE'; $('live-repairs').textContent = 'HONEST'; $('locked-total').textContent = 'NEAR'; $('pending-reward').textContent = 'PIXEL'; }
 async function init() {
     try {

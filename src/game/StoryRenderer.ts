@@ -53,14 +53,17 @@ export class StoryRenderer {
   private drawImage(key:string,x:number,y:number,w:number,h:number){const img=this.assets.get(key);if(img)this.ctx.drawImage(img,Math.round(x),Math.round(y),Math.round(w),Math.round(h));}
   private drawSprite(sheetKey:string,x:number,y:number,w:number,h:number,cols:number,rows:number){const img=this.assets.get(sheetKey);if(!img)return;const frame=Math.floor(this.pulse*4)%Math.min(2,cols);const sw=img.width/cols, sh=img.height/rows;this.ctx.drawImage(img,frame*sw,0,sw,sh,Math.round(x),Math.round(y),w,h);}
   private drawTerrain(){const c=this.ctx; c.clearRect(0,0,640,360); c.imageSmoothingEnabled=false; const bg=this.assets.get(this.districtId==='crossing'?'bg:crossing':'background'); if(bg&&this.districtId==='crossing'){c.drawImage(bg,0,0,640,360);} else {const sky={crossing:'#273e72',lantern:'#59355f',archive:'#384263',foundry:'#5c3b36'}[this.districtId]; this.fill(0,0,640,360,sky); this.fill(0,170,640,190,{crossing:'#4d735f',lantern:'#52634b',archive:'#445469',foundry:'#695046'}[this.districtId]);}
-    // water/path accents
-    if(this.districtId==='crossing'){this.fill(278,0,86,360,'#3b6a9e');this.fill(0,286,640,74,'#446e5c');}
-    if(this.districtId==='lantern'){this.fill(0,286,640,74,'#536848');for(let i=0;i<5;i++)this.fill(68+i*110,165,6,42,'#ffd391');}
-    if(this.districtId==='archive'){this.fill(0,286,640,74,'#475162');this.fill(480,182,94,54,'#4f7eb0');}
-    if(this.districtId==='foundry'){this.fill(0,286,640,74,'#5f4a40');this.fill(0,180,640,10,'#805544');}
+    // Fractured Crossing already has a fully illustrated landscape with a river,
+    // paths and vegetation. Do not paint opaque strips over it: those were the
+    // giant blue/green rectangles visible through the middle of the game.
+    if(this.districtId==='crossing')return;
+    // The other districts still use placeholder terrain. Keep their props
+    // restrained until dedicated pixel-art maps replace these fallback scenes.
+    if(this.districtId==='lantern'){for(let i=0;i<5;i++)this.fill(68+i*110,165,5,24,'#d3a96b');}
+    if(this.districtId==='archive'){this.fill(480,182,94,54,'#4f7eb0');}
+    if(this.districtId==='foundry'){this.fill(0,180,640,6,'#805544');}
     for(let i=0;i<9;i++)this.drawImage(`prop:${i%2?'tree1':'tree2'}`,20+i*70,85+(i%3)*8,34,52);
     for(let i=0;i<10;i++)this.drawImage(`prop:${i%2?'bush1':'bush2'}`,15+i*62,262+(i%2)*12,24,20);
-    for(let i=0;i<7;i++)this.fill(44+i*88,278,60,7,'#b88a63');
   }
   private drawDistrictLandmarks(view:DistrictStatusView){const progress=view.districtProgress; const stage=progress>=100?'restored':progress>=45?'progress':'broken';
     if(this.districtId==='crossing'){
@@ -75,8 +78,16 @@ export class StoryRenderer {
     }
     const gate=this.hotspots().find(x=>x.type==='gate'); if(gate) this.drawImage(gate.sprite?gate.sprite.replace('prop:','prop:'): 'prop:house-red',gate.x,gate.y,gate.w,gate.h);
   }
-  private drawHotspots(){const c=this.ctx; this.hotspots().forEach((h,idx)=>{const focused=idx===this.focusIndex; const activePulse=Math.floor(this.pulse*5)%2===0; if(focused||this.hovered===h.id){c.strokeStyle=focused?'#ffe6b8':'#c7d7ff';c.lineWidth=2;c.strokeRect(h.x-2,h.y-2,h.w+4,h.h+4);} if(h.type!=='gate'&&activePulse){this.fill(h.x+h.w/2-5,h.y-10,10,5,'#151d35');this.fill(h.x+h.w/2-2,h.y-7,4,2,'#ffd391');}});
-  }
+  private drawHotspots(){const c=this.ctx; this.hotspots().forEach((h,idx)=>{
+    // Small pixel-art beacons, rather than the oversized rectangular hit-box
+    // outline that visually framed NPCs and scenery in the old renderer.
+    const focused=idx===this.focusIndex,hovered=this.hovered===h.id;
+    if(!focused&&!hovered&&Math.floor(this.pulse*2)%2)return;
+    const x=Math.round(h.x+h.w/2),y=Math.max(56,Math.round(h.y-8));
+    c.fillStyle=focused?'#ffe8b3':hovered?'#c7eaff':'#c8b5ea';
+    c.beginPath();c.moveTo(x,y-5);c.lineTo(x+5,y);c.lineTo(x,y+5);c.lineTo(x-5,y);c.closePath();c.fill();
+    this.fill(x-1,y-1,2,2,focused?'#6b4573':'#292c4c');
+  });} 
   private drawPlayer(){this.drawSprite('sprite:player',this.player.x-16,this.player.y-32,32,48,4,4); this.fill(this.player.x-9,this.player.y+13,18,4,'#1c2647');}
   private drawCaption(view:DistrictStatusView){const hs=this.hotspots()[this.focusIndex]; this.fill(8,8,220,42,'rgba(8,10,22,0.76)'); this.ctx.strokeStyle=view.worldFlags[this.districtId+'Restored']?'#a7ecc4':'#ffd391'; this.ctx.strokeRect(8,8,220,42); this.ctx.fillStyle='#f6f1e0'; this.ctx.font='bold 12px monospace'; this.ctx.fillText(ORDER.indexOf(this.districtId)+1+'. '+this.districtId.toUpperCase(),16,24); this.ctx.font='10px monospace'; this.ctx.fillStyle='#c9d2eb'; this.ctx.fillText(`Track: ${view.trackedQuestLabel.slice(0,28)}`,16,38); if(hs){this.fill(432,8,200,42,'rgba(8,10,22,0.76)'); this.ctx.strokeStyle='#58658d'; this.ctx.strokeRect(432,8,200,42); this.ctx.fillStyle='#f6f1e0'; this.ctx.font='bold 12px monospace'; this.ctx.fillText(hs.label,440,24); this.ctx.fillStyle='#c9d2eb'; this.ctx.font='10px monospace'; this.ctx.fillText('Enter / click to interact',440,38);} }
   private draw(){const view=this.getView(); this.setDistrict(view.districtId); this.drawTerrain(); this.drawDistrictLandmarks(view); this.drawHotspots(); this.drawPlayer(); this.drawCaption(view); }

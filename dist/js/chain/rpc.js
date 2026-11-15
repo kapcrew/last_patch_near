@@ -18,14 +18,28 @@ export async function view(config, method, args = {}) { if (!config.contractId)
 finally {
     clearTimeout(timer);
 } }
-export async function getBounties(config) { const all = []; for (let offset = 0; offset < 500; offset += 25) {
-    const page = await view(config, 'list_bounties', { offset, limit: 25 });
-    if (!page || !Array.isArray(page.items))
-        throw new Error('Malformed bounty list');
-    all.push(...page.items.map(parseBounty));
-    if (page.next_offset === null || page.items.length === 0)
-        break;
-} return all; }
+export async function getBounties(config) {
+    const all = [];
+    const seen = new Set();
+    let offset = 0;
+    while (true) {
+        if (seen.has(offset))
+            throw Error('RPC returned a repeated pagination offset');
+        seen.add(offset);
+        const page = await view(config, 'list_bounties', { offset, limit: 25 });
+        if (!page || !Array.isArray(page.items) || !Number.isSafeInteger(page.total) || !('next_offset' in page))
+            throw Error('Malformed bounty list');
+        all.push(...page.items.map(parseBounty));
+        if (page.next_offset === null) {
+            if (all.length !== page.total)
+                throw Error('RPC bounty pagination count mismatch');
+            return all;
+        }
+        if (!Number.isSafeInteger(page.next_offset) || page.next_offset <= offset || page.items.length === 0)
+            throw Error('RPC returned invalid bounty pagination');
+        offset = page.next_offset;
+    }
+}
 export async function rpcHealth(config) { const abort = new AbortController(); const timer = setTimeout(() => abort.abort(), 8000); try {
     const response = await fetch(config.rpc, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ jsonrpc: '2.0', id: 'tlp-health', method: 'status', params: [] }), signal: abort.signal });
     if (!response.ok)

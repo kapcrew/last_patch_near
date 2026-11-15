@@ -11,3 +11,40 @@ body.story-mode .intro{display:none}
 .quest-detail .section-title{font:700 11px var(--mono);color:#ffd391;margin:14px 0 6px}.quest-detail ul{margin:8px 0 10px 18px;padding:0}.quest-detail li{margin:4px 0;color:#ced6ea}.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0 12px}.tab-btn{border:1px solid var(--border);background:#0f1729;color:#d8def0;padding:8px 10px;font:700 10px var(--mono)}.tab-btn.active{background:#242943;border-color:#ab92c3;color:#fff3d1}.resource-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:14px}.resource-card{border:1px solid var(--border);background:#11192c;padding:10px}.resource-card strong{display:block;font:700 16px var(--mono);margin-top:5px;color:#a7ecc4}.resource-card small{font:9px var(--mono);color:#9ea9c7}.save-row,.slot-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.save-chip,.slot-btn{border:1px solid var(--border);background:#11192b;color:#fff;padding:7px 10px;font:10px var(--mono)}.slot-btn.active{background:#3a3450;border-color:#c1a5fb}.inv-list,.achievement-list,.leaderboard-list{display:grid;gap:8px;margin-top:10px}.inv-item,.achievement-item,.leaderboard-item{border:1px solid #2a3149;background:#10182b;padding:10px}.inv-item strong,.achievement-item strong,.leaderboard-item strong{display:block;font:700 11px var(--mono);color:#f5e6c1}.inv-item small,.achievement-item small,.leaderboard-item small{display:block;color:#aab6d5;font-size:10px;margin-top:4px}.achievement-item.locked{opacity:.55}.leaderboard-item.current{border-color:#a7ecc4;background:#153223}.play-controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.help-box{border:1px solid #3c4a71;background:#121b31;padding:10px;margin-top:12px}.district-map{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}.district-cell{border:1px solid var(--border);padding:8px;background:#111a2e}.district-cell.current{border-color:#ffd391;background:#2b2539}.district-cell.done{border-color:#a7ecc4;background:#163124}.modal-backdrop{position:fixed;inset:0;background:rgba(5,8,15,.7);display:flex;align-items:center;justify-content:center;padding:16px;z-index:40}.modal-backdrop.hidden{display:none}.modal-card{width:min(760px,100%);max-height:90vh;overflow:auto;border:2px solid #6b5c8a;background:linear-gradient(180deg,#1b243d,#11182b);box-shadow:0 10px 0 #090d18,0 26px 60px rgba(0,0,0,.45);padding:18px}.modal-card h3{margin:0 0 10px;font:700 24px var(--mono)}.dialogue-log{display:grid;gap:8px;margin:14px 0}.speech{border:1px solid #344058;background:#0e1525;padding:10px}.speech strong{display:block;font:700 10px var(--mono);color:#ffd391;margin-bottom:5px}.puzzle-box{border:1px solid #445070;background:#10172a;padding:12px;margin-top:12px}.puzzle-option-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-top:10px}.puzzle-option,.sequence-chip,.toggle-chip{border:1px solid #56607e;background:#172139;color:#fff;padding:10px;text-align:center}.puzzle-option.selected,.sequence-chip.selected,.toggle-chip.active{background:#3a3450;border-color:#ffd391}.puzzle-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}.feedback{margin-top:12px;font:10px var(--mono)}.feedback.ok{color:#a7ecc4}.feedback.bad{color:#ffabc5}.npc-tip{display:inline-block;padding:5px 8px;font:10px var(--mono);border:1px solid #4a5577;background:#0d1527;color:#d6dbec}.legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;color:#aab6d5;font:10px var(--mono)}
 @media(max-width:1020px){.resource-grid,.district-map{grid-template-columns:1fr 1fr}.modal-card{padding:14px}.modal-card h3{font-size:18px}}
 @media(max-width:660px){.resource-grid,.district-map{grid-template-columns:1fr}.tabs{gap:4px}.tab-btn{padding:7px 8px;font-size:9px}.modal-backdrop{padding:8px}.modal-card{padding:12px}.quest-item .right{max-width:none}}
+
+/* Multi-bounty Live Board — each row is a distinct real on-chain record. */
+.live-create-top{width:100%;margin:0 0 12px;justify-content:center;text-align:center}
+.live-list-count{font:700 10px var(--mono);letter-spacing:.09em;color:#abb9d9;margin:6px 0 10px}
+.live-bounty-row{width:100%;text-align:left;min-height:74px}
+.live-bounty-description{min-width:0;overflow:hidden}
+.live-bounty-description h3{overflow-wrap:anywhere}
+.live-bounty-description small{overflow-wrap:anywhere}
+.live-board-empty{padding:12px;border:1px dashed #485672;color:#abb8d2;font:11px/1.7 var(--mono)}
+.quest-detail .live-select{width:100%;background:#101728;color:#fff;border:1px solid #54627b;padding:10px 9px;font:12px var(--mono);border-radius:0}
+
+
+/* Scene and Questbook visual cleanup (2026-11-15).
+   Crossing uses its complete painted background; no opaque terrain bars. */
+body.story-mode .world-overlay{display:none}
+.world-frame{isolation:isolate}
+.quest-item{display:grid;grid-template-columns:42px minmax(0,1fr) auto;align-items:center;gap:9px;padding:11px 10px;min-height:72px;width:100%}
+.quest-item .quest-symbol{display:flex;align-items:center;justify-content:center;flex:0 0 42px;width:42px;height:32px;padding:3px 2px;font:700 9px var(--mono);letter-spacing:0;border-color:#565a80;background:#2c2b4a;white-space:nowrap}
+.quest-item .quest-copy{min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:3px}
+.quest-item .quest-copy h3{font-size:11px;line-height:1.3;margin:0;overflow-wrap:normal;word-break:normal}
+.quest-item .quest-copy small{font:9px/1.35 var(--mono);overflow-wrap:break-word}
+.quest-item .quest-family{color:#e9c58a;font:8px/1.2 var(--mono);letter-spacing:.1px;text-transform:uppercase;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.quest-item .right{margin:0;max-width:none;justify-self:end;align-self:start;font:8px/1.5 var(--mono);letter-spacing:.2px;color:#d1d4e5;white-space:nowrap}
+.quest-item.selected{box-shadow:inset 3px 0 #ffd391}
+.quest-item:focus-visible{outline-offset:-2px}
+.quest-panel{overflow-wrap:normal}
+.panel-header{gap:10px}
+.panel-header .icon-btn{font:700 10px var(--mono);min-width:76px;min-height:34px;padding:7px}
+.stage-head{align-items:center}
+@media(min-width:1021px) and (max-width:1366px){.app-shell{grid-template-columns:165px minmax(0,1fr) 315px}.stage{padding:27px 20px}.quest-panel{padding:26px 13px}.quest-item{gap:7px}}
+@media(max-width:1020px) and (min-width:661px){.app-shell{grid-template-columns:118px minmax(0,1fr)}.sidebar{padding:22px 8px}.sidebar .nav-item{justify-content:flex-start;padding:10px 6px;gap:0;font-size:10px}.sidebar .nav-item span{display:block}}
+@media(max-width:660px){.sidebar .nav-item span{display:inline}.sidebar .nav-item{font-size:10px;padding:8px 7px}.quest-item{grid-template-columns:42px minmax(0,1fr) auto}.quest-panel{display:block}.panel-header,.panel-intro,.quest-list,.quest-detail,.proof-trail,.notice{grid-column:auto;grid-row:auto}.quest-list{display:flex}.quest-detail,.proof-trail{margin-top:14px}}
+
+/* Keep the four-district mini-map inside the Questbook instead of overflowing to the right. */
+.quest-panel .district-map{grid-template-columns:repeat(2,minmax(0,1fr))}
+.quest-panel .district-cell{min-width:0;overflow-wrap:anywhere}
+@media(max-width:660px){.quest-panel .district-map{grid-template-columns:repeat(2,minmax(0,1fr))}}
